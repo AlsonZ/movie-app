@@ -2,11 +2,17 @@ body {
   background: rgb(48, 48, 48);
   --scrollbarBackground: rgb(37, 37, 37);
   --scrollbarThumb: rgb(73, 73, 73);
+  font-family: "Roboto", sans-serif;
 }
 
 .container {
   display: flex;
   flex-direction: column;
+}
+.container h4 {
+  letter-spacing: 1px;
+  margin: 5px;
+  color: white;
 }
 .movie-container::-webkit-scrollbar {
   height: 6px;
