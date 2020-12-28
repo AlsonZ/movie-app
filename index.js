@@ -33,12 +33,13 @@ const generateMovieCard = (movie) => {
   let movieImage = document.createElement("img");
   let movieOverlay = document.createElement("div");
   let movieOverlayText = document.createElement("p");
+  // todo if movie has no overview, put string saying no overview provided
   let movieTextNode = document.createTextNode(movie.overview);
 
   movieCard.classList.add("movie-card");
   movieOverlay.classList.add("movie-card-overlay");
 
-  movieImage.src = base_url + poster_sizes[0] + movie.poster_path;
+  movieImage.src = base_url + poster_sizes[1] + movie.poster_path;
 
   movieOverlayText.appendChild(movieTextNode);
   movieOverlay.appendChild(movieOverlayText);
