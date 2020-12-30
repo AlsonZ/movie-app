@@ -19,9 +19,9 @@ const setupConfig = async () => {
   console.log(poster_sizes);
 };
 
-const getData = async () => {
+const getData = async (type) => {
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_KEY}&language=en-US&page=1`
+    `https://api.themoviedb.org/3/movie/${type}?api_key=${TMDB_KEY}&language=en-US&page=1`
   );
   const resData = await res.json();
   console.log(resData);
@@ -49,17 +49,16 @@ const generateMovieCard = (movie) => {
   return movieCard;
 };
 
-const loadMovies = async () => {
-  const popularMovieContainer = document.getElementById(
-    "popular-movie-container"
-  );
-  let data = await getData();
+const loadMovies = async (type) => {
+  const movieContainer = document.getElementById(`${type}-movie-container`);
+  let movies = await getData(type);
 
-  data.results.forEach((movie) => {
+  movies.results.forEach((movie) => {
     let movieCard = generateMovieCard(movie);
-    popularMovieContainer.appendChild(movieCard);
+    movieContainer.appendChild(movieCard);
   });
 };
 
 setupConfig();
-loadMovies();
+loadMovies("popular");
+loadMovies("now_playing");
