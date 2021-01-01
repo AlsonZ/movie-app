@@ -59,7 +59,20 @@ const loadMovies = async (type) => {
   });
 };
 
+const loadUpcomingMovies = async (type) => {
+  const movieContainer = document.getElementById(`${type}-movie-container`);
+  let movies = await getData(type);
+  let minDate = movies.dates.minimum;
+  movies.results.forEach((movie) => {
+    if (new Date(minDate) < new Date(movie.release_date)) {
+      let movieCard = generateMovieCard(movie);
+      movieContainer.appendChild(movieCard);
+    }
+  });
+};
+
 setupConfig();
 loadMovies("popular");
 loadMovies("now_playing");
 loadMovies("top_rated");
+loadUpcomingMovies("upcoming");
