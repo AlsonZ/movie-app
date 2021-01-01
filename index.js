@@ -62,3 +62,4 @@ const loadMovies = async (type) => {
 setupConfig();
 loadMovies("popular");
 loadMovies("now_playing");
+loadMovies("top_rated");

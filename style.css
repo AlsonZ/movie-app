@@ -26,6 +26,7 @@ body {
   border-radius: 4px;
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbarThumb) var(--scrollbarBackground);
+  margin-bottom: 2rem;
 }
 .movie-container::-webkit-scrollbar-track {
   border-radius: 10px;
