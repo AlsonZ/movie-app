@@ -14,10 +14,10 @@ body {
   margin: 5px;
   color: white;
 }
-.movie-container::-webkit-scrollbar {
+/* .movie-container::-webkit-scrollbar {
   height: 6px;
-}
-.movie-container {
+} */
+/* .movie-container {
   display: flex;
   flex-direction: row;
   max-width: 100vw;
@@ -27,8 +27,8 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbarThumb) var(--scrollbarBackground);
   margin-bottom: 2rem;
-}
-.movie-container::-webkit-scrollbar-track {
+} */
+/* .movie-container::-webkit-scrollbar-track {
   border-radius: 10px;
   background: var(--scrollbarBackground);
 }
@@ -39,14 +39,23 @@ body {
 }
 .movie-container::-webkit-scrollbar-thumb:hover {
   background: rgb(110, 110, 110);
+} */
+.movie-container {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(154px, max-content));
+  grid-gap: 0.5rem;
 }
-
 .movie-card {
   position: relative;
   margin: 0.5rem;
   height: 231px;
   min-width: 154px;
   overflow: hidden;
+}
+.movie-card img {
+  height: 100%;
+  max-width: 154px;
 }
 .movie-card .movie-card-overlay {
   position: absolute;

@@ -73,6 +73,6 @@ const loadUpcomingMovies = async (type) => {
 
 setupConfig();
 loadMovies("popular");
-loadMovies("now_playing");
-loadMovies("top_rated");
-loadUpcomingMovies("upcoming");
+// loadMovies("now_playing");
+// loadMovies("top_rated");
+// loadUpcomingMovies("upcoming");
