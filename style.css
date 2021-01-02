@@ -8,6 +8,7 @@ body {
 .container {
   display: flex;
   flex-direction: column;
+  margin: 0 0.5rem;
 }
 .container h4 {
   letter-spacing: 1px;
@@ -44,11 +45,12 @@ body {
   justify-content: center;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(154px, max-content));
-  grid-gap: 0.5rem;
+  /* grid-gap: 0.5rem; */
+  grid-gap: 1rem;
 }
 .movie-card {
   position: relative;
-  margin: 0.5rem;
+  /* margin: 0.5rem; */
   height: 231px;
   min-width: 154px;
   overflow: hidden;
