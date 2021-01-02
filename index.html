@@ -18,6 +18,14 @@
         <button onclick='replaceMovies("now_playing")'>In Theatres Now</button>
         <button onclick='replaceMovies("top_rated")'>Top Rated</button>
         <button onclick='replaceMovies("upcoming")'>Upcomming</button>
+        <form>
+          <input
+            type="text"
+            id="searchBarTextInput"
+            placeholder="Insert Movie Name"
+          />
+          <input type="button" value="search" onclick="searchMovie()" />
+        </form>
       </nav>
       <h4>Popular Movies</h4>
       <div id="movie-container" class="movie-container"></div>
