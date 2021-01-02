@@ -48,23 +48,17 @@ const generateMovieCard = (movie) => {
 
   return movieCard;
 };
-
 const loadMovies = async (type) => {
-  const movieContainer = document.getElementById(`${type}-movie-container`);
+  const movieContainer = document.getElementById("movie-container");
   let movies = await getData(type);
 
   movies.results.forEach((movie) => {
-    let movieCard = generateMovieCard(movie);
-    movieContainer.appendChild(movieCard);
-  });
-};
-
-const loadUpcomingMovies = async (type) => {
-  const movieContainer = document.getElementById(`${type}-movie-container`);
-  let movies = await getData(type);
-  let minDate = movies.dates.minimum;
-  movies.results.forEach((movie) => {
-    if (new Date(minDate) < new Date(movie.release_date)) {
+    if (type == "upcoming") {
+      if (new Date(movies.dates.minimum) < new Date(movie.release_date)) {
+        let movieCard = generateMovieCard(movie);
+        movieContainer.appendChild(movieCard);
+      }
+    } else {
       let movieCard = generateMovieCard(movie);
       movieContainer.appendChild(movieCard);
     }
@@ -73,6 +67,9 @@ const loadUpcomingMovies = async (type) => {
 
 setupConfig();
 loadMovies("popular");
-// loadMovies("now_playing");
-// loadMovies("top_rated");
-// loadUpcomingMovies("upcoming");
+
+const replaceMovies = (type) => {
+  const movieContainer = document.getElementById(`movie-container`);
+  movieContainer.textContent = "";
+  loadMovies(type);
+};
