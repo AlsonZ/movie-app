@@ -1,5 +1,6 @@
 const TMDB_KEY = "c29fbb833564782ada44d069d01f6411";
 let base_url = "";
+let searching = false;
 let poster_sizes = [];
 
 const getConfig = async () => {
@@ -7,7 +8,7 @@ const getConfig = async () => {
     `https://api.themoviedb.org/3/configuration?api_key=${TMDB_KEY}`
   );
   const resData = await res.json();
-  console.log(resData);
+  // console.log(resData);
   return resData;
 };
 
@@ -15,11 +16,11 @@ const setupConfig = async () => {
   config = await getConfig();
   base_url = config.images.base_url;
   poster_sizes = config.images.poster_sizes;
-  console.log(base_url);
+  // console.log(base_url);
   console.log(poster_sizes);
 };
 
-const getData = async (type) => {
+const getMovieData = async (type) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/${type}?api_key=${TMDB_KEY}&language=en-US&page=1`
   );
@@ -50,7 +51,7 @@ const generateMovieCard = (movie) => {
 };
 const loadMovies = async (type) => {
   const movieContainer = document.getElementById("movie-container");
-  let movies = await getData(type);
+  let movies = await getMovieData(type);
 
   movies.results.forEach((movie) => {
     if (type == "upcoming") {
@@ -65,11 +66,28 @@ const loadMovies = async (type) => {
   });
 };
 
-setupConfig();
-loadMovies("popular");
-
 const replaceMovies = (type) => {
   const movieContainer = document.getElementById(`movie-container`);
   movieContainer.textContent = "";
   loadMovies(type);
 };
+const getSearchedMovies = async (movieName) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${movieName}&page=1&include_adult=false`
+  );
+  const resData = await res.json();
+  console.log(resData);
+  return resData;
+};
+const searchMovie = async () => {
+  if (!searching) {
+    searching = true;
+    const searchBarInput = document.getElementById("searchBarTextInput").value;
+    console.log(searchBarInput);
+    const movies = await getSearchedMovies(searchBarInput);
+    searching = false;
+  }
+};
+
+setupConfig();
+loadMovies("popular");

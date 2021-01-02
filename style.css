@@ -10,6 +10,9 @@ body {
   flex-direction: column;
   margin: 0 0.5rem;
 }
+.container nav {
+  display: flex;
+}
 .container h4 {
   letter-spacing: 1px;
   margin: 5px;
