@@ -18,7 +18,7 @@
         <button onclick='loadMovies("now_playing")'>In Theatres Now</button>
         <button onclick='loadMovies("top_rated")'>Top Rated</button>
         <button onclick='loadMovies("upcoming")'>Upcomming</button>
-        <form autocomplete="off">
+        <form autocomplete="off" onsubmit="submitSearch(event)">
           <input
             type="text"
             id="searchBarTextInput"

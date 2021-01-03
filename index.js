@@ -4,6 +4,7 @@ const FALLBACK_TEXT_OVERVIEW = "No Overview of this movie was provided by TMDB";
 let base_url = "";
 let searching = false;
 let poster_sizes = [];
+let currentlyFoundMoviesText = "";
 
 const getConfig = async () => {
   const res = await fetch(
@@ -94,13 +95,19 @@ const getSearchedMovies = async (movieName) => {
   console.log(resData);
   return resData;
 };
+
+const submitSearch = (e) => {
+  e.preventDefault();
+  searchMovie();
+};
 const searchMovie = async () => {
-  if (!searching) {
-    searching = true;
-    const searchBarInput = document.getElementById("searchBarTextInput").value;
+  const searchBarInput = document.getElementById("searchBarTextInput").value;
+  if (!searching && searchBarInput != currentlyFoundMoviesText) {
     console.log(searchBarInput);
+    searching = true;
     const movies = await getSearchedMovies(searchBarInput);
     displayMovies(movies);
+    currentlyFoundMoviesText = searchBarInput;
     searching = false;
   }
 };
