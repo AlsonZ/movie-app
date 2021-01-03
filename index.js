@@ -1,4 +1,5 @@
 const TMDB_KEY = "c29fbb833564782ada44d069d01f6411";
+const FALLBACK_IMAGE_URL = "./fallback-image.png";
 let base_url = "";
 let searching = false;
 let poster_sizes = [];
@@ -40,7 +41,11 @@ const generateMovieCard = (movie) => {
   movieCard.classList.add("movie-card");
   movieOverlay.classList.add("movie-card-overlay");
 
-  movieImage.src = base_url + poster_sizes[1] + movie.poster_path;
+  if (movie.poster_path != null) {
+    movieImage.src = base_url + poster_sizes[1] + movie.poster_path;
+  } else {
+    movieImage.src = FALLBACK_IMAGE_URL;
+  }
 
   movieOverlayText.appendChild(movieTextNode);
   movieOverlay.appendChild(movieOverlayText);
@@ -49,12 +54,11 @@ const generateMovieCard = (movie) => {
 
   return movieCard;
 };
-const loadMovies = async (type) => {
+const createMovieCards = async (movies) => {
   const movieContainer = document.getElementById("movie-container");
-  let movies = await getMovieData(type);
 
   movies.results.forEach((movie) => {
-    if (type == "upcoming") {
+    if (movies.dates != null) {
       if (new Date(movies.dates.minimum) < new Date(movie.release_date)) {
         let movieCard = generateMovieCard(movie);
         movieContainer.appendChild(movieCard);
@@ -66,11 +70,17 @@ const loadMovies = async (type) => {
   });
 };
 
-const replaceMovies = (type) => {
+const displayMovies = (movies) => {
   const movieContainer = document.getElementById(`movie-container`);
   movieContainer.textContent = "";
-  loadMovies(type);
+  createMovieCards(movies);
 };
+
+const loadMovies = async (type) => {
+  let movies = await getMovieData(type);
+  displayMovies(movies);
+};
+
 const getSearchedMovies = async (movieName) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${movieName}&page=1&include_adult=false`
@@ -85,6 +95,7 @@ const searchMovie = async () => {
     const searchBarInput = document.getElementById("searchBarTextInput").value;
     console.log(searchBarInput);
     const movies = await getSearchedMovies(searchBarInput);
+    displayMovies(movies);
     searching = false;
   }
 };
