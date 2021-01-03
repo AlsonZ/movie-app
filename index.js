@@ -1,5 +1,6 @@
 const TMDB_KEY = "c29fbb833564782ada44d069d01f6411";
 const FALLBACK_IMAGE_URL = "./fallback-image.png";
+const FALLBACK_TEXT_OVERVIEW = "No Overview of this movie was provided by TMDB";
 let base_url = "";
 let searching = false;
 let poster_sizes = [];
@@ -35,8 +36,12 @@ const generateMovieCard = (movie) => {
   let movieImage = document.createElement("img");
   let movieOverlay = document.createElement("div");
   let movieOverlayText = document.createElement("p");
-  // todo if movie has no overview, put string saying no overview provided
-  let movieTextNode = document.createTextNode(movie.overview);
+  let movieTextNode;
+  if (movie.overview == "") {
+    movieTextNode = document.createTextNode(FALLBACK_TEXT_OVERVIEW);
+  } else {
+    movieTextNode = document.createTextNode(movie.overview);
+  }
 
   movieCard.classList.add("movie-card");
   movieOverlay.classList.add("movie-card-overlay");
