@@ -132,6 +132,15 @@ const searchMovie = async () => {
   }
 };
 
+const handleMenu = () => {
+  const menu = document.getElementById("menu");
+  if (menu.classList.contains("menu-open")) {
+    menu.classList.remove("menu-open");
+  } else {
+    menu.classList.add("menu-open");
+  }
+};
+
 const start = async () => {
   await setupConfig();
   loadMovies("popular");
