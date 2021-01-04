@@ -20,7 +20,7 @@ const setupConfig = async () => {
   poster_sizes = config.images.poster_sizes;
 };
 
-const getMovieData = async (type) => {
+const getMoviesData = async (type) => {
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/${type}?api_key=${TMDB_KEY}&language=en-US&page=1`
   );
@@ -28,7 +28,7 @@ const getMovieData = async (type) => {
   return resData;
 };
 
-const generateMovieCard = (movie) => {
+const generateMovieCard = (movie, typeOfCard) => {
   // create elements
   let movieCard = document.createElement("div");
   let movieImage = document.createElement("img");
@@ -47,21 +47,20 @@ const generateMovieCard = (movie) => {
   }
 
   // add classes to elements
-  movieCard.classList.add("movie-card");
-  movieOverlay.classList.add("movie-card-overlay");
-  ratingOverlay.classList.add("movie-rating-overlay");
+  movieCard.classList.add(`${typeOfCard}`);
+  movieOverlay.classList.add(`${typeOfCard}-overlay`);
+  ratingOverlay.classList.add(`${typeOfCard}-rating-overlay`);
 
   // check if movie has an image
+  let imageSize = poster_sizes[1];
+  if (typeOfCard == "screen-card") {
+    imageSize = poster_sizes[4];
+  }
   if (movie.poster_path != null) {
-    movieImage.src = base_url + poster_sizes[1] + movie.poster_path;
+    movieImage.src = base_url + imageSize + movie.poster_path;
   } else {
     movieImage.src = FALLBACK_IMAGE_URL;
   }
-
-  // add button to movie card to create screen overlay
-  movieCard.onclick = () => {
-    createOverlay(movie.id);
-  };
 
   movieOverlayText.appendChild(movieTextNode);
   movieOverlay.appendChild(movieOverlayText);
@@ -81,11 +80,19 @@ const createMovieCards = async (movies) => {
   movies.results.forEach((movie) => {
     if (movies.dates != null) {
       if (new Date(movies.dates.minimum) < new Date(movie.release_date)) {
-        let movieCard = generateMovieCard(movie);
+        let movieCard = generateMovieCard(movie, "movie-card");
+        // add button to movie card to create screen overlay
+        movieCard.onclick = () => {
+          displayOverlay(movie.id);
+        };
         movieContainer.appendChild(movieCard);
       }
     } else {
-      let movieCard = generateMovieCard(movie);
+      let movieCard = generateMovieCard(movie, "movie-card");
+      // add button to movie card to create screen overlay
+      movieCard.onclick = () => {
+        displayOverlay(movie.id);
+      };
       movieContainer.appendChild(movieCard);
     }
   });
@@ -113,7 +120,7 @@ const loadMovies = async (type) => {
         return "Upcoming";
     }
   };
-  let movies = await getMovieData(type);
+  let movies = await getMoviesData(type);
   setHeader(getTitle(type));
   displayMovies(movies);
 };
@@ -151,8 +158,40 @@ const handleMenu = () => {
   }
 };
 
-const createOverlay = (movieId) => {
+const getMovieData = async (movieId) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${TMDB_KEY}&language=en-US`
+  );
+  const resData = await res.json();
+  return resData;
+};
+
+const createOverlay = (movieData) => {
+  // create elements
+  const card = generateMovieCard(movieData, "screen-card");
+  console.log(card);
+  console.log(poster_sizes);
+  return card;
+};
+
+const removeOverlay = () => {
+  const screenOverlay = document.getElementById("screen-overlay");
+  screenOverlay.textContent = "";
+  screenOverlay.classList.remove("overlay-active");
+};
+
+const displayOverlay = async (movieId) => {
   console.log(movieId);
+  const screenOverlay = document.getElementById("screen-overlay");
+  if (screenOverlay.classList.contains("overlay-active")) {
+    removeOverlay();
+  } else {
+    screenOverlay.classList.add("overlay-active");
+    const movieData = await getMovieData(movieId);
+    console.log(movieData);
+    const overlayCard = await createOverlay(movieData);
+    screenOverlay.appendChild(overlayCard);
+  }
 };
 
 const start = async () => {
