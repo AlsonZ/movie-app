@@ -11,7 +11,6 @@ const getConfig = async () => {
     `https://api.themoviedb.org/3/configuration?api_key=${TMDB_KEY}`
   );
   const resData = await res.json();
-  // console.log(resData);
   return resData;
 };
 
@@ -19,8 +18,6 @@ const setupConfig = async () => {
   config = await getConfig();
   base_url = config.images.base_url;
   poster_sizes = config.images.poster_sizes;
-  // console.log(base_url);
-  console.log(poster_sizes);
 };
 
 const getMovieData = async (type) => {
@@ -28,7 +25,6 @@ const getMovieData = async (type) => {
     `https://api.themoviedb.org/3/movie/${type}?api_key=${TMDB_KEY}&language=en-US&page=1`
   );
   const resData = await res.json();
-  console.log(resData);
   return resData;
 };
 
@@ -108,7 +104,6 @@ const getSearchedMovies = async (movieName) => {
     `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${movieName}&page=1&include_adult=false`
   );
   const resData = await res.json();
-  console.log(resData);
   return resData;
 };
 
@@ -119,7 +114,6 @@ const submitSearch = (e) => {
 const searchMovie = async () => {
   const searchBarInput = document.getElementById("searchBarTextInput").value;
   if (!searching && searchBarInput != currentlyFoundMoviesText) {
-    console.log(searchBarInput);
     searching = true;
     const movies = await getSearchedMovies(searchBarInput);
     setHeader("Searched: " + searchBarInput);
@@ -129,5 +123,9 @@ const searchMovie = async () => {
   }
 };
 
-setupConfig();
-loadMovies("popular");
+const start = async () => {
+  await setupConfig();
+  loadMovies("popular");
+};
+
+start();
