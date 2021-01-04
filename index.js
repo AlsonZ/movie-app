@@ -33,6 +33,9 @@ const generateMovieCard = (movie) => {
   let movieImage = document.createElement("img");
   let movieOverlay = document.createElement("div");
   let movieOverlayText = document.createElement("p");
+  let ratingOverlay = document.createElement("div");
+  let ratingOverlayText = document.createElement("p");
+  let ratingTextNode = document.createTextNode(movie.vote_average);
   let movieTextNode;
   if (movie.overview == "") {
     movieTextNode = document.createTextNode(FALLBACK_TEXT_OVERVIEW);
@@ -42,6 +45,7 @@ const generateMovieCard = (movie) => {
 
   movieCard.classList.add("movie-card");
   movieOverlay.classList.add("movie-card-overlay");
+  ratingOverlay.classList.add("movie-rating-overlay");
 
   if (movie.poster_path != null) {
     movieImage.src = base_url + poster_sizes[1] + movie.poster_path;
@@ -51,8 +55,13 @@ const generateMovieCard = (movie) => {
 
   movieOverlayText.appendChild(movieTextNode);
   movieOverlay.appendChild(movieOverlayText);
+
+  ratingOverlayText.appendChild(ratingTextNode);
+  ratingOverlay.appendChild(ratingOverlayText);
+
   movieCard.appendChild(movieImage);
   movieCard.appendChild(movieOverlay);
+  movieCard.appendChild(ratingOverlay);
 
   return movieCard;
 };
