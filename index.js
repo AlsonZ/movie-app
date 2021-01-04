@@ -81,9 +81,25 @@ const displayMovies = (movies) => {
   movieContainer.textContent = "";
   createMovieCards(movies);
 };
-
+const setHeader = (title) => {
+  const movieTitleElement = document.getElementById("movie-title");
+  movieTitleElement.textContent = title;
+};
 const loadMovies = async (type) => {
+  const getTitle = (title) => {
+    switch (title) {
+      case "popular":
+        return "Popular Movies";
+      case "now_playing":
+        return "In Theatres Now";
+      case "top_rated":
+        return "Top Rated";
+      case "upcoming":
+        return "Upcoming";
+    }
+  };
   let movies = await getMovieData(type);
+  setHeader(getTitle(type));
   displayMovies(movies);
 };
 
@@ -106,6 +122,7 @@ const searchMovie = async () => {
     console.log(searchBarInput);
     searching = true;
     const movies = await getSearchedMovies(searchBarInput);
+    setHeader("Searched: " + searchBarInput);
     displayMovies(movies);
     currentlyFoundMoviesText = searchBarInput;
     searching = false;
