@@ -30,7 +30,7 @@ body {
   display: flex;
   flex-direction: column;
 }
-.container nav {
+nav {
   display: flex;
   background: rgba(31, 31, 31, 0.99);
   align-items: center;
@@ -38,6 +38,7 @@ body {
   position: fixed;
   width: 100%;
   z-index: 1;
+  transition: top 0.7s ease-in-out;
 }
 nav button {
   padding: 0.5rem 0.8rem;
@@ -47,8 +48,10 @@ nav button {
   border: 1px solid var(--highlight);
   border-radius: 5rem;
 }
-nav form {
+nav .inner-menu {
   margin-left: auto;
+}
+nav form {
   margin-right: 0.5rem;
   display: flex;
   flex-direction: row;
@@ -72,6 +75,7 @@ nav form input[type="text"]:focus,
 nav form input[type="text"]:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 /* For autocomplete if i turn autocomplete on later*/
 
 /* nav form input[type="text"]:-webkit-autofill,
@@ -184,4 +188,21 @@ nav form label:hover .svg-icon {
 .movie-card:hover .movie-rating-overlay {
   top: -60px;
   transition: 0.4s ease-in;
+}
+
+@media only screen and (max-width: 710px) {
+  nav {
+    flex-direction: column;
+    top: -195px;
+  }
+  nav .inner-menu {
+    margin-left: 0;
+    width: 100%;
+  }
+  nav form {
+    margin: 0;
+  }
+  .menu-open {
+    top: 0;
+  }
 }
