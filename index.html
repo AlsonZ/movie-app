@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./menu.css" />
+    <link rel="stylesheet" href="./overlay.css" />
   </head>
   <body>
     <div class="container">
@@ -42,6 +43,11 @@
       </nav>
       <h4 id="movie-title"></h4>
       <div id="movie-container" class="movie-container"></div>
+      <div
+        id="screen-overlay"
+        class="screen-overlay"
+        onclick="removeOverlay()"
+      ></div>
     </div>
     <script type="text/javascript" src="index.js"></script>
   </body>
