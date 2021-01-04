@@ -170,7 +170,7 @@ nav form label:hover .svg-icon {
   margin-top: 0.8rem;
 }
 
-.movie-card .movie-rating-overlay {
+.movie-card .movie-card-rating-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -180,12 +180,12 @@ nav form label:hover .svg-icon {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
   transition: 0.2s ease;
 }
-.movie-card .movie-rating-overlay p {
+.movie-card .movie-card-rating-overlay p {
   margin: 0 5px;
   text-align: end;
   font-weight: bold;
 }
-.movie-card:hover .movie-rating-overlay {
+.movie-card:hover .movie-card-rating-overlay {
   top: -60px;
   transition: 0.4s ease-in;
 }
