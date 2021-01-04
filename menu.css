@@ -1,0 +1,90 @@
+.hamburger-box {
+  width: 1.7rem;
+  border-radius: 100vh;
+  cursor: pointer;
+  padding: 1.5rem 1rem;
+  visibility: visible;
+  position: fixed;
+}
+.hamburger {
+  position: relative;
+  display: block;
+}
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  width: 1.65rem;
+  height: 0.1875rem;
+  background: white;
+  transition-property: transform opacity background-color;
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition-duration: 1s;
+}
+.hamburger::before,
+.hamburger::after {
+  position: absolute;
+  content: "";
+  left: 0;
+}
+.hamburger::before {
+  bottom: 0.5rem;
+}
+.hamburger::after {
+  top: 0.5rem;
+}
+
+/* Hamburger hover animation*/
+.hamburger-box:hover .hamburger {
+  animation: slide 1.5s infinite 0.2s;
+}
+.hamburger-box:hover .hamburger::after {
+  animation: slide 1s infinite 0.5s;
+}
+.hamburger-box:hover .hamburger::before {
+  animation: slide 2s infinite;
+}
+@keyframes slide {
+  0% {
+    width: 1.65rem;
+  }
+  50% {
+    width: 0.7rem;
+  }
+  100% {
+    width: 1.65rem;
+  }
+}
+
+/* Open Menu and change Hamburger to an X*/
+.menu-open .hamburger {
+  background-color: transparent;
+  transform: rotate(180deg);
+  animation: none;
+}
+.menu-open .hamburger::before {
+  transform: translateY(8px) rotate(-45deg);
+  animation: none;
+}
+.menu-open .hamburger::after {
+  transform: translateY(-8px) rotate(45deg);
+  animation: none;
+}
+.menu-open .hamburger-box:hover .hamburger {
+  animation: none;
+}
+.menu-open .hamburger-box:hover .hamburger::before {
+  animation: none;
+}
+.menu-open .hamburger-box:hover .hamburger::after {
+  animation: none;
+}
+
+.hamburger-box {
+  display: none;
+}
+
+@media only screen and (max-width: 710px) {
+  .hamburger-box {
+    display: block;
+  }
+}
