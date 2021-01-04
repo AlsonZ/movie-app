@@ -29,6 +29,7 @@ const getMovieData = async (type) => {
 };
 
 const generateMovieCard = (movie) => {
+  // create elements
   let movieCard = document.createElement("div");
   let movieImage = document.createElement("img");
   let movieOverlay = document.createElement("div");
@@ -37,21 +38,30 @@ const generateMovieCard = (movie) => {
   let ratingOverlayText = document.createElement("p");
   let ratingTextNode = document.createTextNode(movie.vote_average);
   let movieTextNode;
+
+  // check if there is an overview
   if (movie.overview == "") {
     movieTextNode = document.createTextNode(FALLBACK_TEXT_OVERVIEW);
   } else {
     movieTextNode = document.createTextNode(movie.overview);
   }
 
+  // add classes to elements
   movieCard.classList.add("movie-card");
   movieOverlay.classList.add("movie-card-overlay");
   ratingOverlay.classList.add("movie-rating-overlay");
 
+  // check if movie has an image
   if (movie.poster_path != null) {
     movieImage.src = base_url + poster_sizes[1] + movie.poster_path;
   } else {
     movieImage.src = FALLBACK_IMAGE_URL;
   }
+
+  // add button to movie card to create screen overlay
+  movieCard.onclick = () => {
+    createOverlay(movie.id);
+  };
 
   movieOverlayText.appendChild(movieTextNode);
   movieOverlay.appendChild(movieOverlayText);
@@ -139,6 +149,10 @@ const handleMenu = () => {
   } else {
     menu.classList.add("menu-open");
   }
+};
+
+const createOverlay = (movieId) => {
+  console.log(movieId);
 };
 
 const start = async () => {
