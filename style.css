@@ -1,21 +1,43 @@
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbarThumb) var(--scrollbarBackground);
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: var(--scrollbarBackground);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: var(--scrollbarThumb);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbarHighlight);
+}
 body {
   background: rgb(48, 48, 48);
   --scrollbarBackground: rgb(37, 37, 37);
-  --scrollbarThumb: rgb(73, 73, 73);
+  --scrollbarThumb: rgb(87, 87, 87);
+  --scrollbarHighlight: rgb(145, 145, 145);
   --highlight: rgb(0, 110, 255);
   font-family: "Roboto", sans-serif;
   margin: 0;
 }
-
 .container {
   display: flex;
   flex-direction: column;
 }
 .container nav {
   display: flex;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(31, 31, 31, 0.99);
   align-items: center;
   flex-direction: row;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 nav button {
   padding: 0.5rem 0.8rem;
@@ -95,32 +117,7 @@ nav form label:hover .svg-icon {
   color: white;
   text-align: center;
 }
-/* .movie-container::-webkit-scrollbar {
-  height: 6px;
-} */
-/* .movie-container {
-  display: flex;
-  flex-direction: row;
-  max-width: 100vw;
-  overflow-x: scroll;
-  border: 1px solid black;
-  border-radius: 4px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--scrollbarThumb) var(--scrollbarBackground);
-  margin-bottom: 2rem;
-} */
-/* .movie-container::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background: var(--scrollbarBackground);
-}
 
-.movie-container::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: var(--scrollbarThumb);
-}
-.movie-container::-webkit-scrollbar-thumb:hover {
-  background: rgb(110, 110, 110);
-} */
 .movie-container {
   justify-content: center;
   display: grid;
