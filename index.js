@@ -169,8 +169,6 @@ const getMovieData = async (movieId) => {
 const createOverlay = (movieData) => {
   // create elements
   const card = generateMovieCard(movieData, "screen-card");
-  console.log(card);
-  console.log(poster_sizes);
   return card;
 };
 
@@ -181,14 +179,12 @@ const removeOverlay = () => {
 };
 
 const displayOverlay = async (movieId) => {
-  console.log(movieId);
   const screenOverlay = document.getElementById("screen-overlay");
   if (screenOverlay.classList.contains("overlay-active")) {
     removeOverlay();
   } else {
     screenOverlay.classList.add("overlay-active");
     const movieData = await getMovieData(movieId);
-    console.log(movieData);
     const overlayCard = await createOverlay(movieData);
     screenOverlay.appendChild(overlayCard);
   }
