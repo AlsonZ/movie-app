@@ -47,6 +47,7 @@ nav button {
   color: white;
   border: 1px solid var(--highlight);
   border-radius: 5rem;
+  cursor: pointer;
 }
 nav .inner-menu {
   margin-left: auto;
@@ -135,6 +136,7 @@ nav form label:hover .svg-icon {
   height: 231px;
   min-width: 154px;
   overflow: hidden;
+  cursor: pointer;
 }
 .movie-card img {
   height: 100%;
