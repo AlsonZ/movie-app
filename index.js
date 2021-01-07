@@ -174,12 +174,12 @@ const createOverlay = (movieData) => {
 
 const removeOverlay = () => {
   const screenOverlay = document.getElementById("screen-overlay");
-  screenOverlay.textContent = "";
   screenOverlay.classList.remove("overlay-active");
 };
 
 const displayOverlay = async (movieId) => {
   const screenOverlay = document.getElementById("screen-overlay");
+  screenOverlay.textContent = "";
   if (screenOverlay.classList.contains("overlay-active")) {
     removeOverlay();
   } else {
